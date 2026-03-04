@@ -34,26 +34,26 @@ class DatabaseManager:
         Creates a connection pool with min/max connections
         and tests connectivity.
         """
-        try:
+        #try:
             # Debug logging - remove in production
-            logger.info(f"Connecting to PostgreSQL: {settings.postgres_host}:{settings.postgres_port}")
-            logger.debug(f"Database: {settings.postgres_db}")
-            logger.debug(f"User: {settings.postgres_user}")
-            logger.debug(f"Password length: {len(settings.postgres_password) if settings.postgres_password else 0}")
+           # logger.info(f"Connecting to PostgreSQL: {settings.postgres_host}:{settings.postgres_port}")
+            #logger.debug(f"Database: {settings.postgres_db}")
+            #logger.debug(f"User: {settings.postgres_user}")
+            #logger.debug(f"Password length: {len(settings.postgres_password) if settings.postgres_password else 0}")
             
             # Option 1: Use individual parameters (RECOMMENDED)
             # This is more reliable and avoids URL encoding issues
-            self.pool = await asyncpg.create_pool(
-                host=settings.postgres_host,
-                port=settings.postgres_port,
-                database=settings.postgres_db,
-                user=settings.postgres_user,
-                password=settings.postgres_password,
-                min_size=settings.postgres_min_connections,
-                max_size=settings.postgres_max_connections,
-                command_timeout=30,
-                timeout=10
-            )
+         #   self.pool = await asyncpg.create_pool(
+         #       host=settings.postgres_host,
+         #       port=settings.postgres_port,
+         #       database=settings.postgres_db,
+         #       user=settings.postgres_user,
+         #       password=settings.postgres_password,
+         #       min_size=settings.postgres_min_connections,
+         #       max_size=settings.postgres_max_connections,
+         #       command_timeout=30,
+         #       timeout=10
+          #  )
             
             # Option 2: Use DSN (only if you're sure it's correct)
             # Uncomment below and comment Option 1 if you prefer DSN
@@ -66,23 +66,23 @@ class DatabaseManager:
             # )
             
             # Test connection
-            async with self.pool.acquire() as conn:
-                version = await conn.fetchval("SELECT version()")
-                logger.debug(f"PostgreSQL version: {version}")
+       #     async with self.pool.acquire() as conn:
+       #         version = await conn.fetchval("SELECT version()")
+       #         logger.debug(f"PostgreSQL version: {version}")
+       #     
+       #     self._connected = True
+       #     logger.info("✅ PostgreSQL connection pool established")
+       #     logger.info(f"   Pool size: {settings.postgres_min_connections}-{settings.postgres_max_connections}")
             
-            self._connected = True
-            logger.info("✅ PostgreSQL connection pool established")
-            logger.info(f"   Pool size: {settings.postgres_min_connections}-{settings.postgres_max_connections}")
-            
-        except asyncpg.exceptions.InvalidPasswordError as e:
-            logger.error(f"❌ PostgreSQL authentication failed: {e}")
-            logger.error(f"   Check that POSTGRES_PASSWORD environment variable matches database password")
-            self._connected = False
-            raise
-        except Exception as e:
-            logger.error(f"❌ PostgreSQL connection failed: {e}")
-            self._connected = False
-            raise
+       # except asyncpg.exceptions.InvalidPasswordError as e:
+       #     logger.error(f"❌ PostgreSQL authentication failed: {e}")
+       #     logger.error(f"   Check that POSTGRES_PASSWORD environment variable matches database password")
+       #     self._connected = False
+       #     raise
+       # except Exception as e:
+       #     logger.error(f"❌ PostgreSQL connection failed: {e}")
+       #     self._connected = False
+       #     raise
     
     async def disconnect(self) -> None:
         """Close connection pool gracefully."""

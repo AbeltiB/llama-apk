@@ -33,6 +33,7 @@ from app.utils.rate_limiter import rate_limiter
 
 # Import generators and analyzers
 from app.services.analysis.intent_analyzer import intent_analyzer
+from app.services.analysis.intent_schemas import ActionRecommendation, SafetyStatus
 from app.services.analysis.context_builder import context_builder
 from app.services.generation.architecture_generator import architecture_generator
 from app.services.generation.layout_generator import layout_generator
@@ -192,6 +193,8 @@ class IntentAnalysisStage(PipelineStage):
     
     async def execute(self, request: AIRequest, context: Dict[str, Any]) -> Dict[str, Any]:
         """Analyze intent"""
+        from app.services.analysis.intent_schemas import ActionRecommendation, SafetyStatus
+
         # Skip if cache hit
         if context.get('cache_hit'):
             logger.info("pipeline.intent_analysis.skipped_cache_hit")

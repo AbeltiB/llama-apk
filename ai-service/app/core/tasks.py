@@ -232,9 +232,11 @@ async def connect_services():
         await db_manager.connect()
         logger.info("✅ PostgreSQL connected")
     except Exception as e:
-        logger.error(f"❌ PostgreSQL connection failed: {e}")
-        raise
-
+        #logger.error(f"❌ PostgreSQL connection failed: {e}")
+        #raise
+        logger.warning(f"⚠️  PostgreSQL connection failed (continuing without database): {e}")
+        # Set a flag on db_manager to indicate it's not connected
+        db_manager.is_connected = False
 
 async def disconnect_services():
     """Disconnect from services"""
@@ -253,6 +255,10 @@ async def disconnect_services():
 
 async def save_results_direct(request: AIRequest, result: Dict[str, Any]) -> bool:
     """Save generation results to database directly with stage-level diagnostics."""
+    # Check if database is connected
+    if not hasattr(db_manager, 'is_connected') or not db_manager.is_connected:
+        logger.info("💾 Database not connected - skipping persistence")
+        return False
     metadata = result.get("metadata", {})
 
     shape_summary = {

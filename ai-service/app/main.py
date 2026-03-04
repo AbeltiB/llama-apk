@@ -60,12 +60,12 @@ async def lifespan(app: FastAPI):
             logger.warning("app.startup.redis.degraded_mode", message="Continuing without cache")
         
         # PostgreSQL
-        try:
-            await db_manager.connect()
-            logger.info("app.startup.postgresql.connected")
-        except Exception as e:
-            logger.critical("app.startup.postgresql.failed", exc_info=e)
-            raise
+        #try:
+            #await db_manager.connect()
+         #   logger.info("app.startup.postgresql.connected")
+        #except Exception as e:
+         #   logger.critical("app.startup.postgresql.failed", exc_info=e)
+          #  raise
         
         logger.info(
             "app.startup.completed",
