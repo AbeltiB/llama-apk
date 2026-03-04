@@ -9,28 +9,28 @@ Phase 5: Blockly generation ✅
 from app.services.generation.architecture_generator import (
     architecture_generator,
     ArchitectureGenerator,
-    ArchitectureGenerationStage,
+    #ArchitectureGenerationStage,
     ArchitectureGenerationError,
-    InvalidArchitectureError
+    #InvalidArchitectureError
 )
 
 from app.services.generation.architecture_validator import (
     architecture_validator,
     ArchitectureValidator,
-    ValidationWarning
+    ValidationIssue
 )
 
 from app.services.generation.layout_generator import (
     layout_generator,
     LayoutGenerator,
-    LayoutGenerationError,
-    CollisionError
+    LayoutDesignError,
+    #CollisionError
 )
 
 from app.services.generation.layout_validator import (
     layout_validator,
     LayoutValidator,
-    LayoutWarning
+    LayoutValidationIssue
 )
 
 from app.services.generation.blockly_generator import (
@@ -42,7 +42,7 @@ from app.services.generation.blockly_generator import (
 from app.services.generation.blockly_validator import (
     blockly_validator,
     BlocklyValidator,
-    BlocklyWarning
+    ValidationIssue
 )
 
 from app.services.generation.cache_manager import (
@@ -54,24 +54,25 @@ __all__ = [
     # Architecture generation
     'architecture_generator',
     'ArchitectureGenerator',
-    'ArchitectureGenerationStage',  # Changed from ArQuMHtpwbtsTXsRMArUQeWyGrRu7gwbZs2
+    #'ArchitectureGenerationStage',  # Changed from ArQuMHtpwbtsTXsRMArUQeWyGrRu7gwbZs2
     'InvalidArchitectureError',
+    'ArchitectureGenerationError'
     
     # Architecture validation
     'architecture_validator',
     'ArchitectureValidator',
-    'ValidationWarning',
+    'ValidationIssue',
     
     # Layout generation
     'layout_generator',
     'LayoutGenerator',
-    'LayoutGenerationError',
-    'CollisionError',
+    'LayoutDesignError',
+    #'CollisionError',
     
     # Layout validation
     'layout_validator',
     'LayoutValidator',
-    'LayoutWarning',
+    'LayoutValidationIssue',
     
     # Blockly generation
     'blockly_generator',
@@ -81,7 +82,7 @@ __all__ = [
     # Blockly validation
     'blockly_validator',
     'BlocklyValidator',
-    'BlocklyWarning',
+    'ValidationIssue',
     
     # Semantic cache
     'semantic_cache',

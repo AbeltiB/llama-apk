@@ -895,6 +895,6 @@ architecture_generator = ArchitectureGenerator()
 
 __all__ = [
     'ArchitectureGenerator',
-    'ArhictectureGenerationError',
+    'ArchitectureGenerationError',
     'architecture_generator'
 ]
